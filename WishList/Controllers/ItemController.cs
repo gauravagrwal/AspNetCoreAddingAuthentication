@@ -37,6 +37,7 @@ namespace WishList.Controllers
         public IActionResult Create(Models.Item item)
         {
             var user = _userManager.GetUserAsync(HttpContext.User).Result;
+            item.User = user;
             _context.Items.Add(item);
             _context.SaveChanges();
             return RedirectToAction("Index");
@@ -46,7 +47,7 @@ namespace WishList.Controllers
         {
             var user = _userManager.GetUserAsync(HttpContext.User).Result;
             var item = _context.Items.FirstOrDefault(e => e.Id == id);
-            if (item.User.Id == user.Id)
+            if (item.User == user)
                 return Unauthorized();
             _context.Items.Remove(item);
             _context.SaveChanges();
