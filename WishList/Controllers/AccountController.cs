@@ -48,6 +48,8 @@ namespace WishList.Controllers
             {
                 foreach (var error in result.Errors)
                     ModelState.AddModelError("Password", error.Description);
+
+                return View(registerViewModel);
             }
             return RedirectToAction("Index", "Home");
         }
